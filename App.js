@@ -1,17 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+//all external dependencies
 import { NavigationContainer } from '@react-navigation/native';
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from './screens/loginScreen';
 
+
+//user defined screens
+import LoginScreen from './screens/loginScreen';
+import SignupScreen from './screens/signupScreen';
+
+//creating the stack for navigator
 const Stack=createNativeStackNavigator()
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login' screenOptions={{headerStyle:{backgroundColor:"orange"}}}  >
-        <Stack.Screen options={ {title:"SurveyApp",headerLeft:()=> <Text style={{marginRight:20}} >Login to Continue</Text> } } name='Login' component={LoginScreen}/>
+      <Stack.Navigator initialRouteName='Login' screenOptions={ { headerStyle : { backgroundColor:"white" } } }  >
+        <Stack.Screen options={ {title:"" } } name='Login' component={LoginScreen}/>
+        <Stack.Screen options={ {title:"",headerLeft:()=><></> } } name='Signup' component={SignupScreen}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );
