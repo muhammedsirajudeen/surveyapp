@@ -53,7 +53,7 @@ const loginStyle=StyleSheet.create(
             borderBottomColor:"black",
             borderBottomWidth:1,
             width:"100%",
-            height:"20%"
+            height:40
         },
         loginbutton:{
             display:"flex",
@@ -61,7 +61,7 @@ const loginStyle=StyleSheet.create(
             alignItems:"center",
             margin:10,
             width:"100%",
-            height:"10%",
+            height:40,
             backgroundColor:Backgroundcolor,
         },
         logintext:{

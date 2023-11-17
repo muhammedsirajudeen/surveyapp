@@ -15,14 +15,12 @@ export default function SignupScreen({navigation}){
         'keyboardDidShow',
         () => {
           setKeyboardVisible(true);
-          console.log('Keyboard is now visible');
         }
       );
       const keyboardDidHideListener = Keyboard.addListener(
         'keyboardDidHide',
         () => {
           setKeyboardVisible(false);
-          console.log('Keyboard is now hidden');
         }
       );
   
