@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules/
+**/node_modules/
 
 # Expo
 .expo/
@@ -17,6 +18,7 @@ web-build/
 *.mobileprovision
 
 # Metro
+
 .metro-health-check*
 
 # debug
@@ -33,3 +35,8 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+**/prisma/.env
+**/prisma/.prisma
+**/prisma/migrations
+**/database/data

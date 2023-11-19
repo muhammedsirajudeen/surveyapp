@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  mssql-server:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      SA_PASSWORD: Sirajudeen1 # Replace with a strong password
+      ACCEPT_EULA: Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./data:/var/opt/mssql
