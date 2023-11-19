@@ -39,4 +39,6 @@ yarn-error.*
 **/prisma/.env
 **/prisma/.prisma
 **/prisma/migrations
+**/prisma/generated
+
 **/database/data
