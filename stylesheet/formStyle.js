@@ -14,8 +14,8 @@ const formStyle=StyleSheet.create(
             flexGrow:1,
             justifyContent:"center",
             alignItems:"center",
-            height:"80%",
-            width:"90%",
+            width:400,
+            // maxHeight:""
         },
         text:{
             fontWeight:"900",
@@ -23,9 +23,7 @@ const formStyle=StyleSheet.create(
             marginTop:10
         },
         keyboardview:{
-            display:"flex",
-            width:"100%",
-            height:"100%"
+            flex:1
         }
     }
 )
