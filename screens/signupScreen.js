@@ -1,4 +1,4 @@
-import { View,Text, TextInput, Button, Touchable, TouchableOpacity, Pressable,KeyboardAvoidingView, ScrollView, Keyboard } from "react-native";
+import { View,Text, TextInput, Button, Touchable, TouchableOpacity, Pressable,KeyboardAvoidingView, ScrollView, Keyboard,Image } from "react-native";
 import loginStyle from "../stylesheet/loginStyle";
 import { useState,useEffect } from "react";
 
@@ -44,6 +44,9 @@ export default function SignupScreen({navigation}){
     function createaccountHandler(){
         navigation.navigate("Signup")
     }
+    function passwordvisibleHandler(){
+        visibility ? setVisibility(false) : setVisibility(true) 
+      }
 
     return(
 
@@ -61,10 +64,15 @@ export default function SignupScreen({navigation}){
                             <Text>Email Address</Text>
                         </View>
                         <TextInput style={loginStyle.textinput} placeholder="enter email address"  value={email} onChangeText={(text)=>setEmail(text)} ></TextInput>
+                        
                         <View style={loginStyle.textcontainer}>
                             <Text>Password</Text>
                         </View>
-                        <TextInput style={loginStyle.textinput} secureTextEntry={visibility} placeholder="enter password" value={password} onChangeText={(text)=>setPassword(text)} ></TextInput>
+                        <View style={loginStyle.passwordcontainer}>
+                             <TextInput style={loginStyle.passwordinput} secureTextEntry={visibility} placeholder="enter password" value={password} onChangeText={(text)=>setPassword(text)} ></TextInput>
+                            <TouchableOpacity onPress={passwordvisibleHandler} style={loginStyle.passwordbutton}><Image source={require("./password.png")} style={loginStyle.image} /></TouchableOpacity>
+                        </View>
+                        {/* <TextInput style={loginStyle.textinput} secureTextEntry={visibility} placeholder="enter password" value={password} onChangeText={(text)=>setPassword(text)} ></TextInput> */}
                         
                         <TouchableOpacity style={loginStyle.loginbutton} onPress={loginHandler}><Text style={loginStyle.logintext} >Create Account</Text></TouchableOpacity>
                     </View>

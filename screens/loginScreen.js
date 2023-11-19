@@ -1,4 +1,4 @@
-import { View,Text, TextInput, Button, Touchable, TouchableOpacity, Pressable,Keyboard } from "react-native";
+import { View,Text, TextInput, Button, Touchable, TouchableOpacity, Pressable,Keyboard,Image } from "react-native";
 import loginStyle from "../stylesheet/loginStyle";
 import { useState,useEffect } from "react";
 export default function LoginScreen({navigation}){
@@ -42,6 +42,10 @@ export default function LoginScreen({navigation}){
         navigation.navigate("Signup")
     }
 
+    function passwordvisibleHandler(){
+      visibility ? setVisibility(false) : setVisibility(true) 
+    }
+
     return(
         <View style={loginStyle.container}  >
             <View style={loginStyle.firstsubcontainer}>
@@ -56,7 +60,12 @@ export default function LoginScreen({navigation}){
                     <View style={loginStyle.textcontainer}>
                         <Text>Password</Text>
                     </View>
-                    <TextInput style={loginStyle.textinput} secureTextEntry={visibility} placeholder="enter password" value={password} onChangeText={(text)=>setPassword(text)} ></TextInput>
+
+                    <View style={loginStyle.passwordcontainer}>
+                      <TextInput style={loginStyle.passwordinput} secureTextEntry={visibility} placeholder="enter password" value={password} onChangeText={(text)=>setPassword(text)} ></TextInput>
+                      <TouchableOpacity onPress={passwordvisibleHandler} style={loginStyle.passwordbutton}><Image source={require("./password.png")} style={loginStyle.image} /></TouchableOpacity>
+                    </View>
+
                     <TouchableOpacity style={loginStyle.loginbutton} onPress={loginHandler}><Text style={loginStyle.logintext} >Login</Text></TouchableOpacity>
                     <TouchableOpacity style={loginStyle.forgotpasswordbutton} onPress={forgotpasswordHandler}><Text>Forgot Password</Text></TouchableOpacity>
                 </View>

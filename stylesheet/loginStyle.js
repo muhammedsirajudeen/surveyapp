@@ -78,6 +78,23 @@ const loginStyle=StyleSheet.create(
         createaccountbutton:{
             marginBottom:20,
             color:Backgroundcolor
+        },
+        passwordcontainer:{
+            width:"100%",
+            display:"flex",
+            borderStyle:"solid",
+            borderBottomWidth:1,
+            flexDirection:"row",
+            justifyContent:"center",
+            alignItems:"center"
+        },
+        image:{
+            width:24,
+            height:24,
+        },
+        passwordinput:{
+            margin:10,
+            width:"90%"
         }
 
 

@@ -15,7 +15,7 @@ const Stack=createNativeStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Form' screenOptions={ { headerStyle : { backgroundColor:"white" } } }  >
+      <Stack.Navigator initialRouteName='Login' screenOptions={ { headerStyle : { backgroundColor:"white" } } }  >
 
         <Stack.Screen options={ {title:"" } } name='Form' component={FormScreen}/>      
         <Stack.Screen options={ {title:"" } } name='Login' component={LoginScreen}/>
