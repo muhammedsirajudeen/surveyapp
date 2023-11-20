@@ -15,10 +15,10 @@ const Stack=createNativeStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login' screenOptions={ { headerStyle : { backgroundColor:"white" } } }  >
+      <Stack.Navigator initialRouteName='Home' screenOptions={ { headerStyle : { backgroundColor:"white" } } }  >
 
         <Stack.Screen options={ {title:"" } } name='Form' component={FormScreen}/>      
-        <Stack.Screen options={ {title:"" } } name='Login' component={LoginScreen}/>
+        <Stack.Screen options={ {title:"" ,headerLeft:()=><></>} } name='Login' component={LoginScreen}/>
         <Stack.Screen options={ {title:"",headerLeft:()=><></> } } name='Signup' component={SignupScreen}/>
         <Stack.Screen options={ {title:"",headerLeft:()=><></> } } name='Home' component={HomeScreen}/>
 

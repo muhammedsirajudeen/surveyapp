@@ -115,6 +115,36 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password'
 };
 
+exports.Prisma.SurveyScalarFieldEnum = {
+  id: 'id',
+  businesstype: 'businesstype',
+  competitortype: 'competitortype',
+  volume: 'volume',
+  servicetype: 'servicetype',
+  dispatchlocation: 'dispatchlocation',
+  materialvalue: 'materialvalue',
+  deliveryarea: 'deliveryarea',
+  loadfrequency: 'loadfrequency',
+  companyname: 'companyname',
+  companyaddress: 'companyaddress',
+  companycontact: 'companycontact',
+  companymail: 'companymail',
+  contactname: 'contactname',
+  contactdesignation: 'contactdesignation',
+  contactmail: 'contactmail',
+  price: 'price',
+  parceltype: 'parceltype',
+  fuelcharge: 'fuelcharge',
+  docketcharge: 'docketcharge',
+  odacharge: 'odacharge',
+  handlingcharge: 'handlingcharge',
+  chargeweight: 'chargeweight',
+  chargerate: 'chargerate',
+  insurance: 'insurance',
+  cft: 'cft',
+  userId: 'userId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -122,7 +152,8 @@ exports.Prisma.SortOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Survey: 'Survey'
 };
 
 /**

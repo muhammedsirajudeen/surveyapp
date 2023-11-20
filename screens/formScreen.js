@@ -1,13 +1,31 @@
 import { View,Text, ScrollView, TextInput, KeyboardAvoidingView, Touchable, TouchableOpacity,Alert } from "react-native";
 import formStyle from "../stylesheet/formStyle";
 import SelectDropdown from 'react-native-select-dropdown'
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios"
+import backendUrl from "../components/backendUri";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 //forms here
 import FirstForm from "../components/FirstForm";
 import SecondForm from "../components/SecondForm";
 import ThirdForm from "../components/ThirdForm";
-export default function FormScreen(){
+export default function FormScreen({navigation}){
+    //we are accessing the current user mail here
+    const [currentusermail,setCurrentuseremail]=useState("")
+    useEffect(()=>{
+        async function getEmail(){
+            let email=await AsyncStorage.getItem("email")
+            console.log(email)
+            setCurrentuseremail(email)
+            if(!email){
+                navigation.navigate("Login")
+            }
+        }
+        getEmail()
+
+    },[])
     //common in all forms
     const [pleasefill,setPleasefill]=useState("")
 
@@ -74,15 +92,54 @@ export default function FormScreen(){
 
 
     }
-    function submitHandler(){
-        //here we submit the data to the server all the data and we set loading to false 
+    async function submitHandler(){
         if(price.length<1 || parceltype.length<1 || fuelcharge.length<1 || docketcharge.length<1 ||
            odacharge.length<1 || handlingcharge.length<1 || chargeweight.length<1 || chargerate.length<1 ||
            insurance.length<1 || cft.length<1){
             setPleasefill("please enter all required details before proceeding")
            }else{
             setLoading(true)
+            //we are giving the details to be submitted to server here
+            let response=(await axios.post(backendUrl+"/form/submit",{
+                currentusermail:currentusermail,
+                //first form details
+                businesstype:businesstype,
+                competitortype:competitortype,
+                volume:parseInt(volume,10),
+                servicetype:servicetype,
+                dispatchlocation:dispatchlocation,
+                materialvalue:parseInt(materialvalue,10),
+                deliveryarea:deliveryarea,
+                loadfrequency:loadfrequency,
+                //we are giving second form details here
+                companyname:companyname,
+                companyaddress:companyaddress,
+                companycontact:companycontact,
+                companymail:companymail,
+                contactname:contactname,
+                contactdesignation:contactdesignation,
+                contactmail:contactmail,
+                //details of form in third page
+                price:parseInt(price,10),
+                parceltype:parceltype,
+                fuelcharge:parseInt(fuelcharge,10),
+                docketcharge:parseInt(docketcharge,10),
+                odacharge:parseInt(odacharge,10),
+                handlingcharge:parseInt(handlingcharge,10),
+                chargeweight:parseInt(chargeweight,10),
+                chargerate:parseInt(chargerate,10),
+                insurance:parseInt(insurance),
+                cft:parseInt(cft,10)
 
+            })).data
+            console.log(response)
+            if(response.message!=="success"){
+                Alert.alert("please resubmit the form")
+            }else if(response.message==="success"){
+                Alert.alert("form submitted successfully")
+                navigation.navigate("Home")
+            }
+            setLoading(false)
            }
     }
 

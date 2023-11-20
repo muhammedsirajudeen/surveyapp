@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Survey
+ * 
+ */
+export type Survey = $Result.DefaultSelection<Prisma.$SurveyPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -150,6 +155,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs>;
+
+  /**
+   * `prisma.survey`: Exposes CRUD operations for the **Survey** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Surveys
+    * const surveys = await prisma.survey.findMany()
+    * ```
+    */
+  get survey(): Prisma.SurveyDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -620,7 +635,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    Survey: 'Survey'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -637,7 +653,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user'
+      modelProps: 'user' | 'survey'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -704,6 +720,72 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>,
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Survey: {
+        payload: Prisma.$SurveyPayload<ExtArgs>
+        fields: Prisma.SurveyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SurveyFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SurveyFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          findFirst: {
+            args: Prisma.SurveyFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SurveyFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          findMany: {
+            args: Prisma.SurveyFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>[]
+          }
+          create: {
+            args: Prisma.SurveyCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          createMany: {
+            args: Prisma.SurveyCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.SurveyDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          update: {
+            args: Prisma.SurveyUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          deleteMany: {
+            args: Prisma.SurveyDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SurveyUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.SurveyUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$SurveyPayload>
+          }
+          aggregate: {
+            args: Prisma.SurveyAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateSurvey>
+          }
+          groupBy: {
+            args: Prisma.SurveyGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<SurveyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SurveyCountArgs<ExtArgs>,
+            result: $Utils.Optional<SurveyCountAggregateOutputType> | number
           }
         }
       }
@@ -849,6 +931,39 @@ export namespace Prisma {
   /**
    * Count Types
    */
+
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    survey: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    survey?: boolean | UserCountOutputTypeCountSurveyArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSurveyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SurveyWhereInput
+  }
 
 
 
@@ -1012,6 +1127,8 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     password?: boolean
+    survey?: boolean | User$surveyArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1021,10 +1138,17 @@ export namespace Prisma {
     password?: boolean
   }
 
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    survey?: boolean | User$surveyArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      survey: Prisma.$SurveyPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
@@ -1395,6 +1519,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
+    survey<T extends User$surveyArgs<ExtArgs> = {}>(args?: Subset<T, User$surveyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1442,6 +1567,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1457,6 +1586,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1471,6 +1604,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the User
      */
     select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1517,6 +1654,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1562,6 +1703,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1602,6 +1747,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The data needed to create a User.
      */
     data: XOR<UserCreateInput, UserUncheckedCreateInput>
@@ -1627,6 +1776,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the User
      */
     select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1662,6 +1815,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -1685,6 +1842,10 @@ export namespace Prisma {
      */
     select?: UserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -1703,6 +1864,27 @@ export namespace Prisma {
 
 
   /**
+   * User.survey
+   */
+  export type User$surveyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    where?: SurveyWhereInput
+    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
+    cursor?: SurveyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
+  }
+
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1710,6 +1892,1243 @@ export namespace Prisma {
      * Select specific fields to fetch from the User
      */
     select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Survey
+   */
+
+  export type AggregateSurvey = {
+    _count: SurveyCountAggregateOutputType | null
+    _avg: SurveyAvgAggregateOutputType | null
+    _sum: SurveySumAggregateOutputType | null
+    _min: SurveyMinAggregateOutputType | null
+    _max: SurveyMaxAggregateOutputType | null
+  }
+
+  export type SurveyAvgAggregateOutputType = {
+    volume: number | null
+    materialvalue: number | null
+    price: number | null
+    fuelcharge: number | null
+    docketcharge: number | null
+    odacharge: number | null
+    handlingcharge: number | null
+    chargeweight: number | null
+    chargerate: number | null
+    insurance: number | null
+    cft: number | null
+  }
+
+  export type SurveySumAggregateOutputType = {
+    volume: number | null
+    materialvalue: number | null
+    price: number | null
+    fuelcharge: number | null
+    docketcharge: number | null
+    odacharge: number | null
+    handlingcharge: number | null
+    chargeweight: number | null
+    chargerate: number | null
+    insurance: number | null
+    cft: number | null
+  }
+
+  export type SurveyMinAggregateOutputType = {
+    id: string | null
+    businesstype: string | null
+    competitortype: string | null
+    volume: number | null
+    servicetype: string | null
+    dispatchlocation: string | null
+    materialvalue: number | null
+    deliveryarea: string | null
+    loadfrequency: string | null
+    companyname: string | null
+    companyaddress: string | null
+    companycontact: string | null
+    companymail: string | null
+    contactname: string | null
+    contactdesignation: string | null
+    contactmail: string | null
+    price: number | null
+    parceltype: string | null
+    fuelcharge: number | null
+    docketcharge: number | null
+    odacharge: number | null
+    handlingcharge: number | null
+    chargeweight: number | null
+    chargerate: number | null
+    insurance: number | null
+    cft: number | null
+    userId: string | null
+  }
+
+  export type SurveyMaxAggregateOutputType = {
+    id: string | null
+    businesstype: string | null
+    competitortype: string | null
+    volume: number | null
+    servicetype: string | null
+    dispatchlocation: string | null
+    materialvalue: number | null
+    deliveryarea: string | null
+    loadfrequency: string | null
+    companyname: string | null
+    companyaddress: string | null
+    companycontact: string | null
+    companymail: string | null
+    contactname: string | null
+    contactdesignation: string | null
+    contactmail: string | null
+    price: number | null
+    parceltype: string | null
+    fuelcharge: number | null
+    docketcharge: number | null
+    odacharge: number | null
+    handlingcharge: number | null
+    chargeweight: number | null
+    chargerate: number | null
+    insurance: number | null
+    cft: number | null
+    userId: string | null
+  }
+
+  export type SurveyCountAggregateOutputType = {
+    id: number
+    businesstype: number
+    competitortype: number
+    volume: number
+    servicetype: number
+    dispatchlocation: number
+    materialvalue: number
+    deliveryarea: number
+    loadfrequency: number
+    companyname: number
+    companyaddress: number
+    companycontact: number
+    companymail: number
+    contactname: number
+    contactdesignation: number
+    contactmail: number
+    price: number
+    parceltype: number
+    fuelcharge: number
+    docketcharge: number
+    odacharge: number
+    handlingcharge: number
+    chargeweight: number
+    chargerate: number
+    insurance: number
+    cft: number
+    userId: number
+    _all: number
+  }
+
+
+  export type SurveyAvgAggregateInputType = {
+    volume?: true
+    materialvalue?: true
+    price?: true
+    fuelcharge?: true
+    docketcharge?: true
+    odacharge?: true
+    handlingcharge?: true
+    chargeweight?: true
+    chargerate?: true
+    insurance?: true
+    cft?: true
+  }
+
+  export type SurveySumAggregateInputType = {
+    volume?: true
+    materialvalue?: true
+    price?: true
+    fuelcharge?: true
+    docketcharge?: true
+    odacharge?: true
+    handlingcharge?: true
+    chargeweight?: true
+    chargerate?: true
+    insurance?: true
+    cft?: true
+  }
+
+  export type SurveyMinAggregateInputType = {
+    id?: true
+    businesstype?: true
+    competitortype?: true
+    volume?: true
+    servicetype?: true
+    dispatchlocation?: true
+    materialvalue?: true
+    deliveryarea?: true
+    loadfrequency?: true
+    companyname?: true
+    companyaddress?: true
+    companycontact?: true
+    companymail?: true
+    contactname?: true
+    contactdesignation?: true
+    contactmail?: true
+    price?: true
+    parceltype?: true
+    fuelcharge?: true
+    docketcharge?: true
+    odacharge?: true
+    handlingcharge?: true
+    chargeweight?: true
+    chargerate?: true
+    insurance?: true
+    cft?: true
+    userId?: true
+  }
+
+  export type SurveyMaxAggregateInputType = {
+    id?: true
+    businesstype?: true
+    competitortype?: true
+    volume?: true
+    servicetype?: true
+    dispatchlocation?: true
+    materialvalue?: true
+    deliveryarea?: true
+    loadfrequency?: true
+    companyname?: true
+    companyaddress?: true
+    companycontact?: true
+    companymail?: true
+    contactname?: true
+    contactdesignation?: true
+    contactmail?: true
+    price?: true
+    parceltype?: true
+    fuelcharge?: true
+    docketcharge?: true
+    odacharge?: true
+    handlingcharge?: true
+    chargeweight?: true
+    chargerate?: true
+    insurance?: true
+    cft?: true
+    userId?: true
+  }
+
+  export type SurveyCountAggregateInputType = {
+    id?: true
+    businesstype?: true
+    competitortype?: true
+    volume?: true
+    servicetype?: true
+    dispatchlocation?: true
+    materialvalue?: true
+    deliveryarea?: true
+    loadfrequency?: true
+    companyname?: true
+    companyaddress?: true
+    companycontact?: true
+    companymail?: true
+    contactname?: true
+    contactdesignation?: true
+    contactmail?: true
+    price?: true
+    parceltype?: true
+    fuelcharge?: true
+    docketcharge?: true
+    odacharge?: true
+    handlingcharge?: true
+    chargeweight?: true
+    chargerate?: true
+    insurance?: true
+    cft?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type SurveyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Survey to aggregate.
+     */
+    where?: SurveyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Surveys to fetch.
+     */
+    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SurveyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Surveys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Surveys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Surveys
+    **/
+    _count?: true | SurveyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SurveyAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SurveySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SurveyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SurveyMaxAggregateInputType
+  }
+
+  export type GetSurveyAggregateType<T extends SurveyAggregateArgs> = {
+        [P in keyof T & keyof AggregateSurvey]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSurvey[P]>
+      : GetScalarType<T[P], AggregateSurvey[P]>
+  }
+
+
+
+
+  export type SurveyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SurveyWhereInput
+    orderBy?: SurveyOrderByWithAggregationInput | SurveyOrderByWithAggregationInput[]
+    by: SurveyScalarFieldEnum[] | SurveyScalarFieldEnum
+    having?: SurveyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SurveyCountAggregateInputType | true
+    _avg?: SurveyAvgAggregateInputType
+    _sum?: SurveySumAggregateInputType
+    _min?: SurveyMinAggregateInputType
+    _max?: SurveyMaxAggregateInputType
+  }
+
+  export type SurveyGroupByOutputType = {
+    id: string
+    businesstype: string
+    competitortype: string
+    volume: number
+    servicetype: string
+    dispatchlocation: string
+    materialvalue: number
+    deliveryarea: string
+    loadfrequency: string
+    companyname: string
+    companyaddress: string
+    companycontact: string
+    companymail: string
+    contactname: string
+    contactdesignation: string
+    contactmail: string
+    price: number
+    parceltype: string
+    fuelcharge: number
+    docketcharge: number
+    odacharge: number
+    handlingcharge: number
+    chargeweight: number
+    chargerate: number
+    insurance: number
+    cft: number
+    userId: string
+    _count: SurveyCountAggregateOutputType | null
+    _avg: SurveyAvgAggregateOutputType | null
+    _sum: SurveySumAggregateOutputType | null
+    _min: SurveyMinAggregateOutputType | null
+    _max: SurveyMaxAggregateOutputType | null
+  }
+
+  type GetSurveyGroupByPayload<T extends SurveyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SurveyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SurveyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SurveyGroupByOutputType[P]>
+            : GetScalarType<T[P], SurveyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SurveySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    businesstype?: boolean
+    competitortype?: boolean
+    volume?: boolean
+    servicetype?: boolean
+    dispatchlocation?: boolean
+    materialvalue?: boolean
+    deliveryarea?: boolean
+    loadfrequency?: boolean
+    companyname?: boolean
+    companyaddress?: boolean
+    companycontact?: boolean
+    companymail?: boolean
+    contactname?: boolean
+    contactdesignation?: boolean
+    contactmail?: boolean
+    price?: boolean
+    parceltype?: boolean
+    fuelcharge?: boolean
+    docketcharge?: boolean
+    odacharge?: boolean
+    handlingcharge?: boolean
+    chargeweight?: boolean
+    chargerate?: boolean
+    insurance?: boolean
+    cft?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["survey"]>
+
+  export type SurveySelectScalar = {
+    id?: boolean
+    businesstype?: boolean
+    competitortype?: boolean
+    volume?: boolean
+    servicetype?: boolean
+    dispatchlocation?: boolean
+    materialvalue?: boolean
+    deliveryarea?: boolean
+    loadfrequency?: boolean
+    companyname?: boolean
+    companyaddress?: boolean
+    companycontact?: boolean
+    companymail?: boolean
+    contactname?: boolean
+    contactdesignation?: boolean
+    contactmail?: boolean
+    price?: boolean
+    parceltype?: boolean
+    fuelcharge?: boolean
+    docketcharge?: boolean
+    odacharge?: boolean
+    handlingcharge?: boolean
+    chargeweight?: boolean
+    chargerate?: boolean
+    insurance?: boolean
+    cft?: boolean
+    userId?: boolean
+  }
+
+  export type SurveyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+
+  export type $SurveyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Survey"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      businesstype: string
+      competitortype: string
+      volume: number
+      servicetype: string
+      dispatchlocation: string
+      materialvalue: number
+      deliveryarea: string
+      loadfrequency: string
+      companyname: string
+      companyaddress: string
+      companycontact: string
+      companymail: string
+      contactname: string
+      contactdesignation: string
+      contactmail: string
+      price: number
+      parceltype: string
+      fuelcharge: number
+      docketcharge: number
+      odacharge: number
+      handlingcharge: number
+      chargeweight: number
+      chargerate: number
+      insurance: number
+      cft: number
+      userId: string
+    }, ExtArgs["result"]["survey"]>
+    composites: {}
+  }
+
+
+  type SurveyGetPayload<S extends boolean | null | undefined | SurveyDefaultArgs> = $Result.GetResult<Prisma.$SurveyPayload, S>
+
+  type SurveyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SurveyFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: SurveyCountAggregateInputType | true
+    }
+
+  export interface SurveyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Survey'], meta: { name: 'Survey' } }
+    /**
+     * Find zero or one Survey that matches the filter.
+     * @param {SurveyFindUniqueArgs} args - Arguments to find a Survey
+     * @example
+     * // Get one Survey
+     * const survey = await prisma.survey.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends SurveyFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, SurveyFindUniqueArgs<ExtArgs>>
+    ): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Survey that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {SurveyFindUniqueOrThrowArgs} args - Arguments to find a Survey
+     * @example
+     * // Get one Survey
+     * const survey = await prisma.survey.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends SurveyFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, SurveyFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Survey that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyFindFirstArgs} args - Arguments to find a Survey
+     * @example
+     * // Get one Survey
+     * const survey = await prisma.survey.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends SurveyFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, SurveyFindFirstArgs<ExtArgs>>
+    ): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Survey that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyFindFirstOrThrowArgs} args - Arguments to find a Survey
+     * @example
+     * // Get one Survey
+     * const survey = await prisma.survey.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends SurveyFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, SurveyFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Surveys that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Surveys
+     * const surveys = await prisma.survey.findMany()
+     * 
+     * // Get first 10 Surveys
+     * const surveys = await prisma.survey.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const surveyWithIdOnly = await prisma.survey.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends SurveyFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, SurveyFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Survey.
+     * @param {SurveyCreateArgs} args - Arguments to create a Survey.
+     * @example
+     * // Create one Survey
+     * const Survey = await prisma.survey.create({
+     *   data: {
+     *     // ... data to create a Survey
+     *   }
+     * })
+     * 
+    **/
+    create<T extends SurveyCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, SurveyCreateArgs<ExtArgs>>
+    ): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Surveys.
+     *     @param {SurveyCreateManyArgs} args - Arguments to create many Surveys.
+     *     @example
+     *     // Create many Surveys
+     *     const survey = await prisma.survey.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends SurveyCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, SurveyCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Survey.
+     * @param {SurveyDeleteArgs} args - Arguments to delete one Survey.
+     * @example
+     * // Delete one Survey
+     * const Survey = await prisma.survey.delete({
+     *   where: {
+     *     // ... filter to delete one Survey
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends SurveyDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, SurveyDeleteArgs<ExtArgs>>
+    ): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Survey.
+     * @param {SurveyUpdateArgs} args - Arguments to update one Survey.
+     * @example
+     * // Update one Survey
+     * const survey = await prisma.survey.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends SurveyUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, SurveyUpdateArgs<ExtArgs>>
+    ): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Surveys.
+     * @param {SurveyDeleteManyArgs} args - Arguments to filter Surveys to delete.
+     * @example
+     * // Delete a few Surveys
+     * const { count } = await prisma.survey.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends SurveyDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, SurveyDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Surveys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Surveys
+     * const survey = await prisma.survey.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends SurveyUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, SurveyUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Survey.
+     * @param {SurveyUpsertArgs} args - Arguments to update or create a Survey.
+     * @example
+     * // Update or create a Survey
+     * const survey = await prisma.survey.upsert({
+     *   create: {
+     *     // ... data to create a Survey
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Survey we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends SurveyUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, SurveyUpsertArgs<ExtArgs>>
+    ): Prisma__SurveyClient<$Result.GetResult<Prisma.$SurveyPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Surveys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyCountArgs} args - Arguments to filter Surveys to count.
+     * @example
+     * // Count the number of Surveys
+     * const count = await prisma.survey.count({
+     *   where: {
+     *     // ... the filter for the Surveys we want to count
+     *   }
+     * })
+    **/
+    count<T extends SurveyCountArgs>(
+      args?: Subset<T, SurveyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SurveyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Survey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SurveyAggregateArgs>(args: Subset<T, SurveyAggregateArgs>): Prisma.PrismaPromise<GetSurveyAggregateType<T>>
+
+    /**
+     * Group by Survey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SurveyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SurveyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SurveyGroupByArgs['orderBy'] }
+        : { orderBy?: SurveyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SurveyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSurveyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Survey model
+   */
+  readonly fields: SurveyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Survey.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SurveyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Survey model
+   */ 
+  interface SurveyFieldRefs {
+    readonly id: FieldRef<"Survey", 'String'>
+    readonly businesstype: FieldRef<"Survey", 'String'>
+    readonly competitortype: FieldRef<"Survey", 'String'>
+    readonly volume: FieldRef<"Survey", 'Int'>
+    readonly servicetype: FieldRef<"Survey", 'String'>
+    readonly dispatchlocation: FieldRef<"Survey", 'String'>
+    readonly materialvalue: FieldRef<"Survey", 'Int'>
+    readonly deliveryarea: FieldRef<"Survey", 'String'>
+    readonly loadfrequency: FieldRef<"Survey", 'String'>
+    readonly companyname: FieldRef<"Survey", 'String'>
+    readonly companyaddress: FieldRef<"Survey", 'String'>
+    readonly companycontact: FieldRef<"Survey", 'String'>
+    readonly companymail: FieldRef<"Survey", 'String'>
+    readonly contactname: FieldRef<"Survey", 'String'>
+    readonly contactdesignation: FieldRef<"Survey", 'String'>
+    readonly contactmail: FieldRef<"Survey", 'String'>
+    readonly price: FieldRef<"Survey", 'Int'>
+    readonly parceltype: FieldRef<"Survey", 'String'>
+    readonly fuelcharge: FieldRef<"Survey", 'Int'>
+    readonly docketcharge: FieldRef<"Survey", 'Int'>
+    readonly odacharge: FieldRef<"Survey", 'Int'>
+    readonly handlingcharge: FieldRef<"Survey", 'Int'>
+    readonly chargeweight: FieldRef<"Survey", 'Int'>
+    readonly chargerate: FieldRef<"Survey", 'Int'>
+    readonly insurance: FieldRef<"Survey", 'Int'>
+    readonly cft: FieldRef<"Survey", 'Int'>
+    readonly userId: FieldRef<"Survey", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Survey findUnique
+   */
+  export type SurveyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter, which Survey to fetch.
+     */
+    where: SurveyWhereUniqueInput
+  }
+
+
+  /**
+   * Survey findUniqueOrThrow
+   */
+  export type SurveyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter, which Survey to fetch.
+     */
+    where: SurveyWhereUniqueInput
+  }
+
+
+  /**
+   * Survey findFirst
+   */
+  export type SurveyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter, which Survey to fetch.
+     */
+    where?: SurveyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Surveys to fetch.
+     */
+    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Surveys.
+     */
+    cursor?: SurveyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Surveys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Surveys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Surveys.
+     */
+    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
+  }
+
+
+  /**
+   * Survey findFirstOrThrow
+   */
+  export type SurveyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter, which Survey to fetch.
+     */
+    where?: SurveyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Surveys to fetch.
+     */
+    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Surveys.
+     */
+    cursor?: SurveyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Surveys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Surveys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Surveys.
+     */
+    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
+  }
+
+
+  /**
+   * Survey findMany
+   */
+  export type SurveyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter, which Surveys to fetch.
+     */
+    where?: SurveyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Surveys to fetch.
+     */
+    orderBy?: SurveyOrderByWithRelationInput | SurveyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Surveys.
+     */
+    cursor?: SurveyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Surveys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Surveys.
+     */
+    skip?: number
+    distinct?: SurveyScalarFieldEnum | SurveyScalarFieldEnum[]
+  }
+
+
+  /**
+   * Survey create
+   */
+  export type SurveyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Survey.
+     */
+    data: XOR<SurveyCreateInput, SurveyUncheckedCreateInput>
+  }
+
+
+  /**
+   * Survey createMany
+   */
+  export type SurveyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Surveys.
+     */
+    data: SurveyCreateManyInput | SurveyCreateManyInput[]
+  }
+
+
+  /**
+   * Survey update
+   */
+  export type SurveyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Survey.
+     */
+    data: XOR<SurveyUpdateInput, SurveyUncheckedUpdateInput>
+    /**
+     * Choose, which Survey to update.
+     */
+    where: SurveyWhereUniqueInput
+  }
+
+
+  /**
+   * Survey updateMany
+   */
+  export type SurveyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Surveys.
+     */
+    data: XOR<SurveyUpdateManyMutationInput, SurveyUncheckedUpdateManyInput>
+    /**
+     * Filter which Surveys to update
+     */
+    where?: SurveyWhereInput
+  }
+
+
+  /**
+   * Survey upsert
+   */
+  export type SurveyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Survey to update in case it exists.
+     */
+    where: SurveyWhereUniqueInput
+    /**
+     * In case the Survey found by the `where` argument doesn't exist, create a new Survey with this data.
+     */
+    create: XOR<SurveyCreateInput, SurveyUncheckedCreateInput>
+    /**
+     * In case the Survey was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SurveyUpdateInput, SurveyUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Survey delete
+   */
+  export type SurveyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SurveyInclude<ExtArgs> | null
+    /**
+     * Filter which Survey to delete.
+     */
+    where: SurveyWhereUniqueInput
+  }
+
+
+  /**
+   * Survey deleteMany
+   */
+  export type SurveyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Surveys to delete
+     */
+    where?: SurveyWhereInput
+  }
+
+
+  /**
+   * Survey without action
+   */
+  export type SurveyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Survey
+     */
+    select?: SurveySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: SurveyInclude<ExtArgs> | null
   }
 
 
@@ -1739,6 +3158,39 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const SurveyScalarFieldEnum: {
+    id: 'id',
+    businesstype: 'businesstype',
+    competitortype: 'competitortype',
+    volume: 'volume',
+    servicetype: 'servicetype',
+    dispatchlocation: 'dispatchlocation',
+    materialvalue: 'materialvalue',
+    deliveryarea: 'deliveryarea',
+    loadfrequency: 'loadfrequency',
+    companyname: 'companyname',
+    companyaddress: 'companyaddress',
+    companycontact: 'companycontact',
+    companymail: 'companymail',
+    contactname: 'contactname',
+    contactdesignation: 'contactdesignation',
+    contactmail: 'contactmail',
+    price: 'price',
+    parceltype: 'parceltype',
+    fuelcharge: 'fuelcharge',
+    docketcharge: 'docketcharge',
+    odacharge: 'odacharge',
+    handlingcharge: 'handlingcharge',
+    chargeweight: 'chargeweight',
+    chargerate: 'chargerate',
+    insurance: 'insurance',
+    cft: 'cft',
+    userId: 'userId'
+  };
+
+  export type SurveyScalarFieldEnum = (typeof SurveyScalarFieldEnum)[keyof typeof SurveyScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -1764,6 +3216,13 @@ export namespace Prisma {
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
   /**
    * Deep Input Types
    */
@@ -1777,6 +3236,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    survey?: SurveyListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -1784,17 +3244,19 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
+    survey?: SurveyOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    email?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
-  }, "id">
+    survey?: SurveyListRelationFilter
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -1816,11 +3278,179 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
   }
 
+  export type SurveyWhereInput = {
+    AND?: SurveyWhereInput | SurveyWhereInput[]
+    OR?: SurveyWhereInput[]
+    NOT?: SurveyWhereInput | SurveyWhereInput[]
+    id?: StringFilter<"Survey"> | string
+    businesstype?: StringFilter<"Survey"> | string
+    competitortype?: StringFilter<"Survey"> | string
+    volume?: IntFilter<"Survey"> | number
+    servicetype?: StringFilter<"Survey"> | string
+    dispatchlocation?: StringFilter<"Survey"> | string
+    materialvalue?: IntFilter<"Survey"> | number
+    deliveryarea?: StringFilter<"Survey"> | string
+    loadfrequency?: StringFilter<"Survey"> | string
+    companyname?: StringFilter<"Survey"> | string
+    companyaddress?: StringFilter<"Survey"> | string
+    companycontact?: StringFilter<"Survey"> | string
+    companymail?: StringFilter<"Survey"> | string
+    contactname?: StringFilter<"Survey"> | string
+    contactdesignation?: StringFilter<"Survey"> | string
+    contactmail?: StringFilter<"Survey"> | string
+    price?: IntFilter<"Survey"> | number
+    parceltype?: StringFilter<"Survey"> | string
+    fuelcharge?: IntFilter<"Survey"> | number
+    docketcharge?: IntFilter<"Survey"> | number
+    odacharge?: IntFilter<"Survey"> | number
+    handlingcharge?: IntFilter<"Survey"> | number
+    chargeweight?: IntFilter<"Survey"> | number
+    chargerate?: IntFilter<"Survey"> | number
+    insurance?: IntFilter<"Survey"> | number
+    cft?: IntFilter<"Survey"> | number
+    userId?: StringFilter<"Survey"> | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type SurveyOrderByWithRelationInput = {
+    id?: SortOrder
+    businesstype?: SortOrder
+    competitortype?: SortOrder
+    volume?: SortOrder
+    servicetype?: SortOrder
+    dispatchlocation?: SortOrder
+    materialvalue?: SortOrder
+    deliveryarea?: SortOrder
+    loadfrequency?: SortOrder
+    companyname?: SortOrder
+    companyaddress?: SortOrder
+    companycontact?: SortOrder
+    companymail?: SortOrder
+    contactname?: SortOrder
+    contactdesignation?: SortOrder
+    contactmail?: SortOrder
+    price?: SortOrder
+    parceltype?: SortOrder
+    fuelcharge?: SortOrder
+    docketcharge?: SortOrder
+    odacharge?: SortOrder
+    handlingcharge?: SortOrder
+    chargeweight?: SortOrder
+    chargerate?: SortOrder
+    insurance?: SortOrder
+    cft?: SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type SurveyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SurveyWhereInput | SurveyWhereInput[]
+    OR?: SurveyWhereInput[]
+    NOT?: SurveyWhereInput | SurveyWhereInput[]
+    businesstype?: StringFilter<"Survey"> | string
+    competitortype?: StringFilter<"Survey"> | string
+    volume?: IntFilter<"Survey"> | number
+    servicetype?: StringFilter<"Survey"> | string
+    dispatchlocation?: StringFilter<"Survey"> | string
+    materialvalue?: IntFilter<"Survey"> | number
+    deliveryarea?: StringFilter<"Survey"> | string
+    loadfrequency?: StringFilter<"Survey"> | string
+    companyname?: StringFilter<"Survey"> | string
+    companyaddress?: StringFilter<"Survey"> | string
+    companycontact?: StringFilter<"Survey"> | string
+    companymail?: StringFilter<"Survey"> | string
+    contactname?: StringFilter<"Survey"> | string
+    contactdesignation?: StringFilter<"Survey"> | string
+    contactmail?: StringFilter<"Survey"> | string
+    price?: IntFilter<"Survey"> | number
+    parceltype?: StringFilter<"Survey"> | string
+    fuelcharge?: IntFilter<"Survey"> | number
+    docketcharge?: IntFilter<"Survey"> | number
+    odacharge?: IntFilter<"Survey"> | number
+    handlingcharge?: IntFilter<"Survey"> | number
+    chargeweight?: IntFilter<"Survey"> | number
+    chargerate?: IntFilter<"Survey"> | number
+    insurance?: IntFilter<"Survey"> | number
+    cft?: IntFilter<"Survey"> | number
+    userId?: StringFilter<"Survey"> | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type SurveyOrderByWithAggregationInput = {
+    id?: SortOrder
+    businesstype?: SortOrder
+    competitortype?: SortOrder
+    volume?: SortOrder
+    servicetype?: SortOrder
+    dispatchlocation?: SortOrder
+    materialvalue?: SortOrder
+    deliveryarea?: SortOrder
+    loadfrequency?: SortOrder
+    companyname?: SortOrder
+    companyaddress?: SortOrder
+    companycontact?: SortOrder
+    companymail?: SortOrder
+    contactname?: SortOrder
+    contactdesignation?: SortOrder
+    contactmail?: SortOrder
+    price?: SortOrder
+    parceltype?: SortOrder
+    fuelcharge?: SortOrder
+    docketcharge?: SortOrder
+    odacharge?: SortOrder
+    handlingcharge?: SortOrder
+    chargeweight?: SortOrder
+    chargerate?: SortOrder
+    insurance?: SortOrder
+    cft?: SortOrder
+    userId?: SortOrder
+    _count?: SurveyCountOrderByAggregateInput
+    _avg?: SurveyAvgOrderByAggregateInput
+    _max?: SurveyMaxOrderByAggregateInput
+    _min?: SurveyMinOrderByAggregateInput
+    _sum?: SurveySumOrderByAggregateInput
+  }
+
+  export type SurveyScalarWhereWithAggregatesInput = {
+    AND?: SurveyScalarWhereWithAggregatesInput | SurveyScalarWhereWithAggregatesInput[]
+    OR?: SurveyScalarWhereWithAggregatesInput[]
+    NOT?: SurveyScalarWhereWithAggregatesInput | SurveyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Survey"> | string
+    businesstype?: StringWithAggregatesFilter<"Survey"> | string
+    competitortype?: StringWithAggregatesFilter<"Survey"> | string
+    volume?: IntWithAggregatesFilter<"Survey"> | number
+    servicetype?: StringWithAggregatesFilter<"Survey"> | string
+    dispatchlocation?: StringWithAggregatesFilter<"Survey"> | string
+    materialvalue?: IntWithAggregatesFilter<"Survey"> | number
+    deliveryarea?: StringWithAggregatesFilter<"Survey"> | string
+    loadfrequency?: StringWithAggregatesFilter<"Survey"> | string
+    companyname?: StringWithAggregatesFilter<"Survey"> | string
+    companyaddress?: StringWithAggregatesFilter<"Survey"> | string
+    companycontact?: StringWithAggregatesFilter<"Survey"> | string
+    companymail?: StringWithAggregatesFilter<"Survey"> | string
+    contactname?: StringWithAggregatesFilter<"Survey"> | string
+    contactdesignation?: StringWithAggregatesFilter<"Survey"> | string
+    contactmail?: StringWithAggregatesFilter<"Survey"> | string
+    price?: IntWithAggregatesFilter<"Survey"> | number
+    parceltype?: StringWithAggregatesFilter<"Survey"> | string
+    fuelcharge?: IntWithAggregatesFilter<"Survey"> | number
+    docketcharge?: IntWithAggregatesFilter<"Survey"> | number
+    odacharge?: IntWithAggregatesFilter<"Survey"> | number
+    handlingcharge?: IntWithAggregatesFilter<"Survey"> | number
+    chargeweight?: IntWithAggregatesFilter<"Survey"> | number
+    chargerate?: IntWithAggregatesFilter<"Survey"> | number
+    insurance?: IntWithAggregatesFilter<"Survey"> | number
+    cft?: IntWithAggregatesFilter<"Survey"> | number
+    userId?: StringWithAggregatesFilter<"Survey"> | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
     name: string
     password: string
+    survey?: SurveyCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -1828,6 +3458,7 @@ export namespace Prisma {
     email: string
     name: string
     password: string
+    survey?: SurveyUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -1835,6 +3466,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    survey?: SurveyUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -1842,6 +3474,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    survey?: SurveyUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -1865,6 +3498,215 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
   }
 
+  export type SurveyCreateInput = {
+    id?: string
+    businesstype: string
+    competitortype: string
+    volume: number
+    servicetype: string
+    dispatchlocation: string
+    materialvalue: number
+    deliveryarea: string
+    loadfrequency: string
+    companyname: string
+    companyaddress: string
+    companycontact: string
+    companymail: string
+    contactname: string
+    contactdesignation: string
+    contactmail: string
+    price: number
+    parceltype: string
+    fuelcharge: number
+    docketcharge: number
+    odacharge: number
+    handlingcharge: number
+    chargeweight: number
+    chargerate: number
+    insurance: number
+    cft: number
+    user: UserCreateNestedOneWithoutSurveyInput
+  }
+
+  export type SurveyUncheckedCreateInput = {
+    id?: string
+    businesstype: string
+    competitortype: string
+    volume: number
+    servicetype: string
+    dispatchlocation: string
+    materialvalue: number
+    deliveryarea: string
+    loadfrequency: string
+    companyname: string
+    companyaddress: string
+    companycontact: string
+    companymail: string
+    contactname: string
+    contactdesignation: string
+    contactmail: string
+    price: number
+    parceltype: string
+    fuelcharge: number
+    docketcharge: number
+    odacharge: number
+    handlingcharge: number
+    chargeweight: number
+    chargerate: number
+    insurance: number
+    cft: number
+    userId: string
+  }
+
+  export type SurveyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    businesstype?: StringFieldUpdateOperationsInput | string
+    competitortype?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    servicetype?: StringFieldUpdateOperationsInput | string
+    dispatchlocation?: StringFieldUpdateOperationsInput | string
+    materialvalue?: IntFieldUpdateOperationsInput | number
+    deliveryarea?: StringFieldUpdateOperationsInput | string
+    loadfrequency?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    companyaddress?: StringFieldUpdateOperationsInput | string
+    companycontact?: StringFieldUpdateOperationsInput | string
+    companymail?: StringFieldUpdateOperationsInput | string
+    contactname?: StringFieldUpdateOperationsInput | string
+    contactdesignation?: StringFieldUpdateOperationsInput | string
+    contactmail?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    parceltype?: StringFieldUpdateOperationsInput | string
+    fuelcharge?: IntFieldUpdateOperationsInput | number
+    docketcharge?: IntFieldUpdateOperationsInput | number
+    odacharge?: IntFieldUpdateOperationsInput | number
+    handlingcharge?: IntFieldUpdateOperationsInput | number
+    chargeweight?: IntFieldUpdateOperationsInput | number
+    chargerate?: IntFieldUpdateOperationsInput | number
+    insurance?: IntFieldUpdateOperationsInput | number
+    cft?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneRequiredWithoutSurveyNestedInput
+  }
+
+  export type SurveyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    businesstype?: StringFieldUpdateOperationsInput | string
+    competitortype?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    servicetype?: StringFieldUpdateOperationsInput | string
+    dispatchlocation?: StringFieldUpdateOperationsInput | string
+    materialvalue?: IntFieldUpdateOperationsInput | number
+    deliveryarea?: StringFieldUpdateOperationsInput | string
+    loadfrequency?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    companyaddress?: StringFieldUpdateOperationsInput | string
+    companycontact?: StringFieldUpdateOperationsInput | string
+    companymail?: StringFieldUpdateOperationsInput | string
+    contactname?: StringFieldUpdateOperationsInput | string
+    contactdesignation?: StringFieldUpdateOperationsInput | string
+    contactmail?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    parceltype?: StringFieldUpdateOperationsInput | string
+    fuelcharge?: IntFieldUpdateOperationsInput | number
+    docketcharge?: IntFieldUpdateOperationsInput | number
+    odacharge?: IntFieldUpdateOperationsInput | number
+    handlingcharge?: IntFieldUpdateOperationsInput | number
+    chargeweight?: IntFieldUpdateOperationsInput | number
+    chargerate?: IntFieldUpdateOperationsInput | number
+    insurance?: IntFieldUpdateOperationsInput | number
+    cft?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SurveyCreateManyInput = {
+    id?: string
+    businesstype: string
+    competitortype: string
+    volume: number
+    servicetype: string
+    dispatchlocation: string
+    materialvalue: number
+    deliveryarea: string
+    loadfrequency: string
+    companyname: string
+    companyaddress: string
+    companycontact: string
+    companymail: string
+    contactname: string
+    contactdesignation: string
+    contactmail: string
+    price: number
+    parceltype: string
+    fuelcharge: number
+    docketcharge: number
+    odacharge: number
+    handlingcharge: number
+    chargeweight: number
+    chargerate: number
+    insurance: number
+    cft: number
+    userId: string
+  }
+
+  export type SurveyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    businesstype?: StringFieldUpdateOperationsInput | string
+    competitortype?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    servicetype?: StringFieldUpdateOperationsInput | string
+    dispatchlocation?: StringFieldUpdateOperationsInput | string
+    materialvalue?: IntFieldUpdateOperationsInput | number
+    deliveryarea?: StringFieldUpdateOperationsInput | string
+    loadfrequency?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    companyaddress?: StringFieldUpdateOperationsInput | string
+    companycontact?: StringFieldUpdateOperationsInput | string
+    companymail?: StringFieldUpdateOperationsInput | string
+    contactname?: StringFieldUpdateOperationsInput | string
+    contactdesignation?: StringFieldUpdateOperationsInput | string
+    contactmail?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    parceltype?: StringFieldUpdateOperationsInput | string
+    fuelcharge?: IntFieldUpdateOperationsInput | number
+    docketcharge?: IntFieldUpdateOperationsInput | number
+    odacharge?: IntFieldUpdateOperationsInput | number
+    handlingcharge?: IntFieldUpdateOperationsInput | number
+    chargeweight?: IntFieldUpdateOperationsInput | number
+    chargerate?: IntFieldUpdateOperationsInput | number
+    insurance?: IntFieldUpdateOperationsInput | number
+    cft?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SurveyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    businesstype?: StringFieldUpdateOperationsInput | string
+    competitortype?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    servicetype?: StringFieldUpdateOperationsInput | string
+    dispatchlocation?: StringFieldUpdateOperationsInput | string
+    materialvalue?: IntFieldUpdateOperationsInput | number
+    deliveryarea?: StringFieldUpdateOperationsInput | string
+    loadfrequency?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    companyaddress?: StringFieldUpdateOperationsInput | string
+    companycontact?: StringFieldUpdateOperationsInput | string
+    companymail?: StringFieldUpdateOperationsInput | string
+    contactname?: StringFieldUpdateOperationsInput | string
+    contactdesignation?: StringFieldUpdateOperationsInput | string
+    contactmail?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    parceltype?: StringFieldUpdateOperationsInput | string
+    fuelcharge?: IntFieldUpdateOperationsInput | number
+    docketcharge?: IntFieldUpdateOperationsInput | number
+    odacharge?: IntFieldUpdateOperationsInput | number
+    handlingcharge?: IntFieldUpdateOperationsInput | number
+    chargeweight?: IntFieldUpdateOperationsInput | number
+    chargerate?: IntFieldUpdateOperationsInput | number
+    insurance?: IntFieldUpdateOperationsInput | number
+    cft?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -1877,6 +3719,16 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type SurveyListRelationFilter = {
+    every?: SurveyWhereInput
+    some?: SurveyWhereInput
+    none?: SurveyWhereInput
+  }
+
+  export type SurveyOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -1917,8 +3769,222 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type UserRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type SurveyCountOrderByAggregateInput = {
+    id?: SortOrder
+    businesstype?: SortOrder
+    competitortype?: SortOrder
+    volume?: SortOrder
+    servicetype?: SortOrder
+    dispatchlocation?: SortOrder
+    materialvalue?: SortOrder
+    deliveryarea?: SortOrder
+    loadfrequency?: SortOrder
+    companyname?: SortOrder
+    companyaddress?: SortOrder
+    companycontact?: SortOrder
+    companymail?: SortOrder
+    contactname?: SortOrder
+    contactdesignation?: SortOrder
+    contactmail?: SortOrder
+    price?: SortOrder
+    parceltype?: SortOrder
+    fuelcharge?: SortOrder
+    docketcharge?: SortOrder
+    odacharge?: SortOrder
+    handlingcharge?: SortOrder
+    chargeweight?: SortOrder
+    chargerate?: SortOrder
+    insurance?: SortOrder
+    cft?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SurveyAvgOrderByAggregateInput = {
+    volume?: SortOrder
+    materialvalue?: SortOrder
+    price?: SortOrder
+    fuelcharge?: SortOrder
+    docketcharge?: SortOrder
+    odacharge?: SortOrder
+    handlingcharge?: SortOrder
+    chargeweight?: SortOrder
+    chargerate?: SortOrder
+    insurance?: SortOrder
+    cft?: SortOrder
+  }
+
+  export type SurveyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    businesstype?: SortOrder
+    competitortype?: SortOrder
+    volume?: SortOrder
+    servicetype?: SortOrder
+    dispatchlocation?: SortOrder
+    materialvalue?: SortOrder
+    deliveryarea?: SortOrder
+    loadfrequency?: SortOrder
+    companyname?: SortOrder
+    companyaddress?: SortOrder
+    companycontact?: SortOrder
+    companymail?: SortOrder
+    contactname?: SortOrder
+    contactdesignation?: SortOrder
+    contactmail?: SortOrder
+    price?: SortOrder
+    parceltype?: SortOrder
+    fuelcharge?: SortOrder
+    docketcharge?: SortOrder
+    odacharge?: SortOrder
+    handlingcharge?: SortOrder
+    chargeweight?: SortOrder
+    chargerate?: SortOrder
+    insurance?: SortOrder
+    cft?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SurveyMinOrderByAggregateInput = {
+    id?: SortOrder
+    businesstype?: SortOrder
+    competitortype?: SortOrder
+    volume?: SortOrder
+    servicetype?: SortOrder
+    dispatchlocation?: SortOrder
+    materialvalue?: SortOrder
+    deliveryarea?: SortOrder
+    loadfrequency?: SortOrder
+    companyname?: SortOrder
+    companyaddress?: SortOrder
+    companycontact?: SortOrder
+    companymail?: SortOrder
+    contactname?: SortOrder
+    contactdesignation?: SortOrder
+    contactmail?: SortOrder
+    price?: SortOrder
+    parceltype?: SortOrder
+    fuelcharge?: SortOrder
+    docketcharge?: SortOrder
+    odacharge?: SortOrder
+    handlingcharge?: SortOrder
+    chargeweight?: SortOrder
+    chargerate?: SortOrder
+    insurance?: SortOrder
+    cft?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type SurveySumOrderByAggregateInput = {
+    volume?: SortOrder
+    materialvalue?: SortOrder
+    price?: SortOrder
+    fuelcharge?: SortOrder
+    docketcharge?: SortOrder
+    odacharge?: SortOrder
+    handlingcharge?: SortOrder
+    chargeweight?: SortOrder
+    chargerate?: SortOrder
+    insurance?: SortOrder
+    cft?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type SurveyCreateNestedManyWithoutUserInput = {
+    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
+    createMany?: SurveyCreateManyUserInputEnvelope
+    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+  }
+
+  export type SurveyUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
+    createMany?: SurveyCreateManyUserInputEnvelope
+    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type SurveyUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
+    upsert?: SurveyUpsertWithWhereUniqueWithoutUserInput | SurveyUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SurveyCreateManyUserInputEnvelope
+    set?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    disconnect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    delete?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    update?: SurveyUpdateWithWhereUniqueWithoutUserInput | SurveyUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SurveyUpdateManyWithWhereWithoutUserInput | SurveyUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
+  }
+
+  export type SurveyUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput> | SurveyCreateWithoutUserInput[] | SurveyUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SurveyCreateOrConnectWithoutUserInput | SurveyCreateOrConnectWithoutUserInput[]
+    upsert?: SurveyUpsertWithWhereUniqueWithoutUserInput | SurveyUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SurveyCreateManyUserInputEnvelope
+    set?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    disconnect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    delete?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    connect?: SurveyWhereUniqueInput | SurveyWhereUniqueInput[]
+    update?: SurveyUpdateWithWhereUniqueWithoutUserInput | SurveyUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SurveyUpdateManyWithWhereWithoutUserInput | SurveyUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutSurveyInput = {
+    create?: XOR<UserCreateWithoutSurveyInput, UserUncheckedCreateWithoutSurveyInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSurveyInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutSurveyNestedInput = {
+    create?: XOR<UserCreateWithoutSurveyInput, UserUncheckedCreateWithoutSurveyInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSurveyInput
+    upsert?: UserUpsertWithoutSurveyInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSurveyInput, UserUpdateWithoutSurveyInput>, UserUncheckedUpdateWithoutSurveyInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -1963,15 +4029,326 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type SurveyCreateWithoutUserInput = {
+    id?: string
+    businesstype: string
+    competitortype: string
+    volume: number
+    servicetype: string
+    dispatchlocation: string
+    materialvalue: number
+    deliveryarea: string
+    loadfrequency: string
+    companyname: string
+    companyaddress: string
+    companycontact: string
+    companymail: string
+    contactname: string
+    contactdesignation: string
+    contactmail: string
+    price: number
+    parceltype: string
+    fuelcharge: number
+    docketcharge: number
+    odacharge: number
+    handlingcharge: number
+    chargeweight: number
+    chargerate: number
+    insurance: number
+    cft: number
+  }
+
+  export type SurveyUncheckedCreateWithoutUserInput = {
+    id?: string
+    businesstype: string
+    competitortype: string
+    volume: number
+    servicetype: string
+    dispatchlocation: string
+    materialvalue: number
+    deliveryarea: string
+    loadfrequency: string
+    companyname: string
+    companyaddress: string
+    companycontact: string
+    companymail: string
+    contactname: string
+    contactdesignation: string
+    contactmail: string
+    price: number
+    parceltype: string
+    fuelcharge: number
+    docketcharge: number
+    odacharge: number
+    handlingcharge: number
+    chargeweight: number
+    chargerate: number
+    insurance: number
+    cft: number
+  }
+
+  export type SurveyCreateOrConnectWithoutUserInput = {
+    where: SurveyWhereUniqueInput
+    create: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput>
+  }
+
+  export type SurveyCreateManyUserInputEnvelope = {
+    data: SurveyCreateManyUserInput | SurveyCreateManyUserInput[]
+  }
+
+  export type SurveyUpsertWithWhereUniqueWithoutUserInput = {
+    where: SurveyWhereUniqueInput
+    update: XOR<SurveyUpdateWithoutUserInput, SurveyUncheckedUpdateWithoutUserInput>
+    create: XOR<SurveyCreateWithoutUserInput, SurveyUncheckedCreateWithoutUserInput>
+  }
+
+  export type SurveyUpdateWithWhereUniqueWithoutUserInput = {
+    where: SurveyWhereUniqueInput
+    data: XOR<SurveyUpdateWithoutUserInput, SurveyUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SurveyUpdateManyWithWhereWithoutUserInput = {
+    where: SurveyScalarWhereInput
+    data: XOR<SurveyUpdateManyMutationInput, SurveyUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SurveyScalarWhereInput = {
+    AND?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
+    OR?: SurveyScalarWhereInput[]
+    NOT?: SurveyScalarWhereInput | SurveyScalarWhereInput[]
+    id?: StringFilter<"Survey"> | string
+    businesstype?: StringFilter<"Survey"> | string
+    competitortype?: StringFilter<"Survey"> | string
+    volume?: IntFilter<"Survey"> | number
+    servicetype?: StringFilter<"Survey"> | string
+    dispatchlocation?: StringFilter<"Survey"> | string
+    materialvalue?: IntFilter<"Survey"> | number
+    deliveryarea?: StringFilter<"Survey"> | string
+    loadfrequency?: StringFilter<"Survey"> | string
+    companyname?: StringFilter<"Survey"> | string
+    companyaddress?: StringFilter<"Survey"> | string
+    companycontact?: StringFilter<"Survey"> | string
+    companymail?: StringFilter<"Survey"> | string
+    contactname?: StringFilter<"Survey"> | string
+    contactdesignation?: StringFilter<"Survey"> | string
+    contactmail?: StringFilter<"Survey"> | string
+    price?: IntFilter<"Survey"> | number
+    parceltype?: StringFilter<"Survey"> | string
+    fuelcharge?: IntFilter<"Survey"> | number
+    docketcharge?: IntFilter<"Survey"> | number
+    odacharge?: IntFilter<"Survey"> | number
+    handlingcharge?: IntFilter<"Survey"> | number
+    chargeweight?: IntFilter<"Survey"> | number
+    chargerate?: IntFilter<"Survey"> | number
+    insurance?: IntFilter<"Survey"> | number
+    cft?: IntFilter<"Survey"> | number
+    userId?: StringFilter<"Survey"> | string
+  }
+
+  export type UserCreateWithoutSurveyInput = {
+    id?: string
+    email: string
+    name: string
+    password: string
+  }
+
+  export type UserUncheckedCreateWithoutSurveyInput = {
+    id?: string
+    email: string
+    name: string
+    password: string
+  }
+
+  export type UserCreateOrConnectWithoutSurveyInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSurveyInput, UserUncheckedCreateWithoutSurveyInput>
+  }
+
+  export type UserUpsertWithoutSurveyInput = {
+    update: XOR<UserUpdateWithoutSurveyInput, UserUncheckedUpdateWithoutSurveyInput>
+    create: XOR<UserCreateWithoutSurveyInput, UserUncheckedCreateWithoutSurveyInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSurveyInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSurveyInput, UserUncheckedUpdateWithoutSurveyInput>
+  }
+
+  export type UserUpdateWithoutSurveyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserUncheckedUpdateWithoutSurveyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SurveyCreateManyUserInput = {
+    id?: string
+    businesstype: string
+    competitortype: string
+    volume: number
+    servicetype: string
+    dispatchlocation: string
+    materialvalue: number
+    deliveryarea: string
+    loadfrequency: string
+    companyname: string
+    companyaddress: string
+    companycontact: string
+    companymail: string
+    contactname: string
+    contactdesignation: string
+    contactmail: string
+    price: number
+    parceltype: string
+    fuelcharge: number
+    docketcharge: number
+    odacharge: number
+    handlingcharge: number
+    chargeweight: number
+    chargerate: number
+    insurance: number
+    cft: number
+  }
+
+  export type SurveyUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    businesstype?: StringFieldUpdateOperationsInput | string
+    competitortype?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    servicetype?: StringFieldUpdateOperationsInput | string
+    dispatchlocation?: StringFieldUpdateOperationsInput | string
+    materialvalue?: IntFieldUpdateOperationsInput | number
+    deliveryarea?: StringFieldUpdateOperationsInput | string
+    loadfrequency?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    companyaddress?: StringFieldUpdateOperationsInput | string
+    companycontact?: StringFieldUpdateOperationsInput | string
+    companymail?: StringFieldUpdateOperationsInput | string
+    contactname?: StringFieldUpdateOperationsInput | string
+    contactdesignation?: StringFieldUpdateOperationsInput | string
+    contactmail?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    parceltype?: StringFieldUpdateOperationsInput | string
+    fuelcharge?: IntFieldUpdateOperationsInput | number
+    docketcharge?: IntFieldUpdateOperationsInput | number
+    odacharge?: IntFieldUpdateOperationsInput | number
+    handlingcharge?: IntFieldUpdateOperationsInput | number
+    chargeweight?: IntFieldUpdateOperationsInput | number
+    chargerate?: IntFieldUpdateOperationsInput | number
+    insurance?: IntFieldUpdateOperationsInput | number
+    cft?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SurveyUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    businesstype?: StringFieldUpdateOperationsInput | string
+    competitortype?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    servicetype?: StringFieldUpdateOperationsInput | string
+    dispatchlocation?: StringFieldUpdateOperationsInput | string
+    materialvalue?: IntFieldUpdateOperationsInput | number
+    deliveryarea?: StringFieldUpdateOperationsInput | string
+    loadfrequency?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    companyaddress?: StringFieldUpdateOperationsInput | string
+    companycontact?: StringFieldUpdateOperationsInput | string
+    companymail?: StringFieldUpdateOperationsInput | string
+    contactname?: StringFieldUpdateOperationsInput | string
+    contactdesignation?: StringFieldUpdateOperationsInput | string
+    contactmail?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    parceltype?: StringFieldUpdateOperationsInput | string
+    fuelcharge?: IntFieldUpdateOperationsInput | number
+    docketcharge?: IntFieldUpdateOperationsInput | number
+    odacharge?: IntFieldUpdateOperationsInput | number
+    handlingcharge?: IntFieldUpdateOperationsInput | number
+    chargeweight?: IntFieldUpdateOperationsInput | number
+    chargerate?: IntFieldUpdateOperationsInput | number
+    insurance?: IntFieldUpdateOperationsInput | number
+    cft?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SurveyUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    businesstype?: StringFieldUpdateOperationsInput | string
+    competitortype?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    servicetype?: StringFieldUpdateOperationsInput | string
+    dispatchlocation?: StringFieldUpdateOperationsInput | string
+    materialvalue?: IntFieldUpdateOperationsInput | number
+    deliveryarea?: StringFieldUpdateOperationsInput | string
+    loadfrequency?: StringFieldUpdateOperationsInput | string
+    companyname?: StringFieldUpdateOperationsInput | string
+    companyaddress?: StringFieldUpdateOperationsInput | string
+    companycontact?: StringFieldUpdateOperationsInput | string
+    companymail?: StringFieldUpdateOperationsInput | string
+    contactname?: StringFieldUpdateOperationsInput | string
+    contactdesignation?: StringFieldUpdateOperationsInput | string
+    contactmail?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    parceltype?: StringFieldUpdateOperationsInput | string
+    fuelcharge?: IntFieldUpdateOperationsInput | number
+    docketcharge?: IntFieldUpdateOperationsInput | number
+    odacharge?: IntFieldUpdateOperationsInput | number
+    handlingcharge?: IntFieldUpdateOperationsInput | number
+    chargeweight?: IntFieldUpdateOperationsInput | number
+    chargerate?: IntFieldUpdateOperationsInput | number
+    insurance?: IntFieldUpdateOperationsInput | number
+    cft?: IntFieldUpdateOperationsInput | number
+  }
+
 
 
   /**
    * Aliases for legacy arg types
    */
     /**
+     * @deprecated Use UserCountOutputTypeDefaultArgs instead
+     */
+    export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SurveyDefaultArgs instead
+     */
+    export type SurveyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SurveyDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

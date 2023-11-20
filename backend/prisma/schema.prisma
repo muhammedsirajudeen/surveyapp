@@ -11,8 +11,48 @@ datasource db {
 
 model User{
     id String @id @default(uuid())
-    email String
+    email String @unique
     name String
     password String
+    survey Survey[]
 }
+model Survey{
+  //all values from the first form
+  id String @id @default(uuid())
+  businesstype String
+  competitortype String
+  volume Int
+  servicetype String
+  dispatchlocation String
+  materialvalue Int
+  deliveryarea String
+  loadfrequency String
+
+  //all values in the second form
+  companyname String
+  companyaddress String
+  companycontact String
+  companymail String
+  contactname String
+  contactdesignation String
+  contactmail String
+
+  //all values in third form
+  price Int
+  parceltype String
+  fuelcharge Int
+  docketcharge Int
+  odacharge Int
+  handlingcharge Int
+  chargeweight Int
+  chargerate Int
+  insurance Int 
+  cft Int 
+
+  //this is essentially the one to one relation
+  userId String
+  user User @relation(fields:[userId],references: [id])
+}
+
+
 //here we also need to create model for survey we essentially create an array there thats all

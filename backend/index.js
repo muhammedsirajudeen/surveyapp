@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 const cors=require("cors")
 
 const authRoutes=require("./routes/authRoutes")
-
+const formRoutes=require("./routes/formRoutes")
 dotenv.config();
 
 const app = express();
@@ -40,8 +40,7 @@ const verifyToken = async (req, res, next) => {
   
 
 app.use('/auth',authRoutes)
-
-
+app.use('/form',formRoutes)
 
 
 
