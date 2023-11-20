@@ -1,6 +1,11 @@
 import { View,Text, TextInput, Button, Touchable, TouchableOpacity, Pressable,KeyboardAvoidingView, ScrollView, Keyboard,Image } from "react-native";
 import loginStyle from "../stylesheet/loginStyle";
 import { useState,useEffect } from "react";
+import axios from "axios"
+//importing url here
+import backendUrl from "../components/backendUri";
+
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default function SignupScreen({navigation}){
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -10,6 +15,11 @@ export default function SignupScreen({navigation}){
     const [password,setPassword]=useState("")
     const [name,setName]=useState("")
     
+    //handling api response
+    const [apiresponse,setApiresponse]=useState("")
+
+    //loading animation
+    const [loading,setLoading]=useState(false)
     useEffect(() => {
       const keyboardDidShowListener = Keyboard.addListener(
         'keyboardDidShow',
@@ -41,8 +51,34 @@ export default function SignupScreen({navigation}){
     function forgotpasswordHandler(){
 
     }
-    function createaccountHandler(){
-        navigation.navigate("Signup")
+    async function createaccountHandler(){
+        setApiresponse("")
+        setLoading(true)
+        try{
+            let response=(await axios.post(backendUrl+"/auth/signup",
+            {
+                name:name,
+                password:password,
+                email:email
+            }
+        )).data
+        console.log(response)
+      
+        if(response.message!=="success"){
+            setApiresponse(response.message)
+            setLoading(false)
+        }else if(response.message==="success"){
+            console.log("reached here")
+            setLoading(false)
+            navigation.navigate("Login")
+
+
+        }
+
+        }catch(error){
+            console.log(error)
+            setLoading(false)
+        }
     }
     function passwordvisibleHandler(){
         visibility ? setVisibility(false) : setVisibility(true) 
@@ -59,7 +95,7 @@ export default function SignupScreen({navigation}){
                         <View style={loginStyle.textcontainer}>
                             <Text>Name</Text>
                         </View>
-                        <TextInput style={loginStyle.textinput} secureTextEntry={visibility} placeholder="enter name" value={name} onChangeText={(text)=>setName(name)}  ></TextInput>
+                        <TextInput style={loginStyle.textinput}  placeholder="enter name" value={name} onChangeText={(text)=>setName(text)}  ></TextInput>
                         <View style={loginStyle.textcontainer}>
                             <Text>Email Address</Text>
                         </View>
@@ -74,7 +110,14 @@ export default function SignupScreen({navigation}){
                         </View>
                         {/* <TextInput style={loginStyle.textinput} secureTextEntry={visibility} placeholder="enter password" value={password} onChangeText={(text)=>setPassword(text)} ></TextInput> */}
                         
-                        <TouchableOpacity style={loginStyle.loginbutton} onPress={loginHandler}><Text style={loginStyle.logintext} >Create Account</Text></TouchableOpacity>
+                        <TouchableOpacity style={loginStyle.loginbutton} onPress={createaccountHandler}><Text style={loginStyle.logintext} >Create Account</Text></TouchableOpacity>
+                        <Text style={{margin:10,color:"red"}}>{apiresponse}</Text>
+                        <Spinner
+                            visible={loading}
+                            textContent={'submitting...'}
+                            textStyle={{ color: '#FFF' }}
+                            animation='fade'
+                        />
                     </View>
                 </View>
 

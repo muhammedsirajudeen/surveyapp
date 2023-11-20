@@ -1,12 +1,24 @@
 import { View,Text, TextInput, Button, Touchable, TouchableOpacity, Pressable,Keyboard,Image } from "react-native";
 import loginStyle from "../stylesheet/loginStyle";
 import { useState,useEffect } from "react";
+import axios from "axios"
+import backendUrl from "../components/backendUri";
+import Spinner from 'react-native-loading-spinner-overlay';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function LoginScreen({navigation}){
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
     //form inputs
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
+    
+    //handling api response here
+    const [apiresponse,setApiresponse]=useState("")
+
+    //handling loading animation
+    const [loading,setLoading]=useState(false)
+
 
     useEffect(() => {
       const keyboardDidShowListener = Keyboard.addListener(
@@ -28,11 +40,27 @@ export default function LoginScreen({navigation}){
         keyboardDidHideListener.remove();
       };
     }, []);
-    function loginHandler(){
-        console.log("hey")
-    }
+
     const [visibility,setVisibility]=useState(true)
-    function loginHandler(){
+    
+    
+    
+    async function loginHandler(){
+      setLoading(true)
+      let response=(await axios.post(backendUrl+"/auth/signin",
+      {
+        email:email,
+        password:password
+      }
+      )).data
+      console.log(response)
+      if(response.message!=="success"){
+        setApiresponse(response.message)
+      }else if(response.message==="success") {
+        await AsyncStorage.setItem("email",email)
+        navigation.navigate("Home")
+      }
+      setLoading(false)
 
     }
     function forgotpasswordHandler(){
@@ -68,6 +96,13 @@ export default function LoginScreen({navigation}){
 
                     <TouchableOpacity style={loginStyle.loginbutton} onPress={loginHandler}><Text style={loginStyle.logintext} >Login</Text></TouchableOpacity>
                     <TouchableOpacity style={loginStyle.forgotpasswordbutton} onPress={forgotpasswordHandler}><Text>Forgot Password</Text></TouchableOpacity>
+                    <Text style={{margin:10,color:"red"}}>{apiresponse}</Text>
+                        <Spinner
+                            visible={loading}
+                            textContent={'submitting...'}
+                            textStyle={{ color: '#FFF' }}
+                            animation='fade'
+                        />
                 </View>
             </View>
             {isKeyboardVisible? <></> 
