@@ -18,16 +18,19 @@
       "supportsTablet": true
     },
     "android": {
-      "config":{
-        "cleartextTrafficPermitted":true
-      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.vava3455.surveyapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d1612161-bd00-464a-a2ca-17abfeba9ae0"
+      }
     }
   }
 }

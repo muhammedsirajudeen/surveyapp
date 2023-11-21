@@ -1,2 +1,2 @@
-const backendUrl="http://192.168.1.7:3000"
+const backendUrl="https://marketingsurvey.ddns.net"
 export default backendUrl
