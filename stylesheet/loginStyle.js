@@ -63,6 +63,7 @@ const loginStyle=StyleSheet.create(
             width:"100%",
             height:40,
             backgroundColor:Backgroundcolor,
+            borderRadius:10
         },
         logintext:{
             color:"white"
