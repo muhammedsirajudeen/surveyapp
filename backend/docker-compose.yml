@@ -19,9 +19,9 @@ services:
       - "3000:3000"  # Map host port 3000 to container port 3000
     build:
       context: .
-    depends_on:
-      mssql-server:
-        condition: service_started
+    # depends_on:
+    #   mssql-server:
+    #     condition: service_started
     command: sh -c "npx prisma db push && node index.js"
     environment:
       - DB_HOST=mssql-server
