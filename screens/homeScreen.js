@@ -1,6 +1,9 @@
-import { View,Text,Button, TouchableOpacity } from "react-native"
+import { View,Text,Button, TouchableOpacity,Image } from "react-native"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from "react";
+
+//importing stylesheet here
+import homeStyle from "../stylesheet/homeStyle";
 
 export default function HomeScreen({navigation}){
     useEffect(()=>{
@@ -13,19 +16,31 @@ export default function HomeScreen({navigation}){
         }
         getEmail()
     },[])
-    function navigationHandler(){
-        navigation.navigate("Form")
-    }
+
     async function signoutHandler(){
         await AsyncStorage.removeItem("email")
         navigation.navigate("Login")
     }
+    function homeHandler(){
+        navigation.navigate("Home")
+    }
+    function formHandler(){
+        navigation.navigate("Form")
+    }
     return(
-        <View>
-            <View style={{margin:10,width:"100%",height:100}} >
-            <TouchableOpacity onPress={signoutHandler} style={{margin:10,display:"flex",justifyContent:"center",alignItems:"center"}} ><Text style={{backgroundColor:"blue",color:"white",height:50,width:200,borderRadius:10,textAlign:"center",verticalAlign:"middle"}} >Signout</Text></TouchableOpacity>
-                <TouchableOpacity onPress={navigationHandler} style={{margin:10,display:"flex",justifyContent:"center",alignItems:"center"}} ><Text style={{backgroundColor:"blue",color:"white",height:50,width:200,borderRadius:10,textAlign:"center",verticalAlign:"middle"}} >marketing survey form</Text></TouchableOpacity>
+        <>
+            <View>
             </View>
-        </View>
+            <View style={homeStyle.bottomcontainer}>
+                <View style={homeStyle.bottomsubcontainer}>
+                    <TouchableOpacity onPress={homeHandler} >
+                        <Image source={require("./home.png")} style={homeStyle.image} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={formHandler} >
+                        <Image source={require("./form.png")} style={homeStyle.image} />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </>
     )
 }

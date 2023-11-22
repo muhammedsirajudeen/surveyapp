@@ -8,14 +8,15 @@ import LoginScreen from './screens/loginScreen';
 import SignupScreen from './screens/signupScreen';
 import HomeScreen from './screens/homeScreen';
 import FormScreen from './screens/formScreen';
-
+import BlankScreen from './screens/blankScreen';
 //creating the stack for navigator
 const Stack=createNativeStackNavigator()
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home' screenOptions={ { headerStyle : { backgroundColor:"white" } } }  >
+      <Stack.Navigator initialRouteName='Blank' screenOptions={ { headerStyle : { backgroundColor:"white" } } }  >
+        <Stack.Screen options={ {title:"" } } name='Blank' component={BlankScreen}/>      
 
         <Stack.Screen options={ {title:"" } } name='Form' component={FormScreen}/>      
         <Stack.Screen options={ {title:"" ,headerLeft:()=><></>} } name='Login' component={LoginScreen}/>
