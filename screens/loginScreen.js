@@ -91,7 +91,7 @@ export default function LoginScreen({navigation}){
 
                     <View style={loginStyle.passwordcontainer}>
                       <TextInput style={loginStyle.passwordinput} secureTextEntry={visibility} placeholder="enter password" value={password} onChangeText={(text)=>setPassword(text)} ></TextInput>
-                      <TouchableOpacity onPress={passwordvisibleHandler} style={loginStyle.passwordbutton}><Image source={require("./password.png")} style={loginStyle.image} /></TouchableOpacity>
+                      <TouchableOpacity onPress={passwordvisibleHandler} style={loginStyle.passwordbutton}><Image source={require("../assets/password.png")} style={loginStyle.image} /></TouchableOpacity>
                     </View>
 
                     <TouchableOpacity style={loginStyle.loginbutton} onPress={loginHandler}><Text style={loginStyle.logintext} >Login</Text></TouchableOpacity>

@@ -9,15 +9,22 @@ import SignupScreen from './screens/signupScreen';
 import HomeScreen from './screens/homeScreen';
 import FormScreen from './screens/formScreen';
 import BlankScreen from './screens/blankScreen';
+import { SafeAreaView } from 'react-native-safe-area-context';
 //creating the stack for navigator
 const Stack=createNativeStackNavigator()
 
+//common color
+const Backgroundcolor="#7727C8"
+
+
 export default function App() {
   return (
+    
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Blank' screenOptions={ { headerStyle : { backgroundColor:"white" } } }  >
-        <Stack.Screen options={ {title:"" } } name='Blank' component={BlankScreen}/>      
 
+      <Stack.Navigator initialRouteName='Home' screenOptions={ { headerStyle : { backgroundColor:Backgroundcolor } } }  >
+        
+        <Stack.Screen options={ {title:"",backgroundColor:"" } } name='Blank' component={BlankScreen}/>      
         <Stack.Screen options={ {title:"" } } name='Form' component={FormScreen}/>      
         <Stack.Screen options={ {title:"" ,headerLeft:()=><></>} } name='Login' component={LoginScreen}/>
         <Stack.Screen options={ {title:"",headerLeft:()=><></> } } name='Signup' component={SignupScreen}/>

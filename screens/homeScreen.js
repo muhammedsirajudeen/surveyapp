@@ -6,16 +6,7 @@ import { useEffect } from "react";
 import homeStyle from "../stylesheet/homeStyle";
 
 export default function HomeScreen({navigation}){
-    useEffect(()=>{
-        async function getEmail(){
-            let email=await AsyncStorage.getItem("email")
-            console.log(email)
-            if(!email){
-                navigation.navigate("Login")
-            }
-        }
-        getEmail()
-    },[])
+
 
     async function signoutHandler(){
         await AsyncStorage.removeItem("email")
@@ -33,11 +24,17 @@ export default function HomeScreen({navigation}){
             </View>
             <View style={homeStyle.bottomcontainer}>
                 <View style={homeStyle.bottomsubcontainer}>
-                    <TouchableOpacity onPress={homeHandler} >
-                        <Image source={require("./home.png")} style={homeStyle.image} />
+                    <TouchableOpacity  onPress={homeHandler} >
+                        <Image source={require("../assets/home.png")} style={homeStyle.image} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={formHandler} >
-                        <Image source={require("./form.png")} style={homeStyle.image} />
+                        <Image source={require("../assets/form.png")} style={homeStyle.image} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={formHandler} >
+                        <Image source={require("../assets/graph.png")} style={homeStyle.image} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={signoutHandler} >
+                        <Image source={require("../assets/logout.png")} style={homeStyle.image} />
                     </TouchableOpacity>
                 </View>
             </View>
