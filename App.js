@@ -22,7 +22,7 @@ export default function App() {
     
     <NavigationContainer>
 
-      <Stack.Navigator initialRouteName='Home' screenOptions={ { headerStyle : { backgroundColor:Backgroundcolor } } }  >
+      <Stack.Navigator initialRouteName='Blank' screenOptions={ { headerStyle : { backgroundColor:Backgroundcolor } } }  >
         
         <Stack.Screen options={ {title:"",backgroundColor:"" } } name='Blank' component={BlankScreen}/>      
         <Stack.Screen options={ {title:"" } } name='Form' component={FormScreen}/>      

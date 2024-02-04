@@ -25,6 +25,7 @@ services:
     command: sh -c "npx prisma db push && node index.js"
     environment:
       - DB_HOST=mssql-server
+      # - NODE_ENV=production
       - DATABASE_URL=sqlserver://mssql-server:1433;database=test;user=sa;password=Sirajudeen1;encrypt=false;trustServerCertificate=true
       - DB_PORT=1433
       - DB_USER=sa

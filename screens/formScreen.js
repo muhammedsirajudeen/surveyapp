@@ -128,7 +128,7 @@ export default function FormScreen({navigation}){
                 handlingcharge:parseInt(handlingcharge,10),
                 chargeweight:parseInt(chargeweight,10),
                 chargerate:parseInt(chargerate,10),
-                insurance:parseInt(insurance),
+                insurance:insurance,
                 cft:parseInt(cft,10)
 
             })).data

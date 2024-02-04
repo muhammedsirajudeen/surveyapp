@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 
+
 const formStyle=StyleSheet.create(
     {
         maincontainer:{
@@ -24,7 +25,12 @@ const formStyle=StyleSheet.create(
         },
         keyboardview:{
             flex:1
-        }
+        },
+        dropdownstyle:{
+            height:40,
+            fontSize:10,
+            borderRadius:10            
+        },
     }
 )
 export default formStyle

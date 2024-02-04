@@ -15,9 +15,9 @@ export default function SecondForm({secondpageHandler,companyname,setCompanyname
         <TextInput  style={{borderStyle:"solid",borderBottomWidth:1,height:50,width:200}} keyboardType="default" placeholder="contact person designation" value={contactdesignation} onChangeText={(text)=>setContactdesignation(text)}  ></TextInput>
         <TextInput  style={{borderStyle:"solid",borderBottomWidth:1,height:50,width:200}} keyboardType="default" placeholder="contact person email" value={contactmail} onChangeText={(text)=>setContactmail(text)}  ></TextInput>
         <Text style={{margin:10,color:"red"}}>{pleasefill}</Text>
-        <TouchableOpacity onPress={secondpagepreviousHandler}><Text style={{margin:20,backgroundColor:"black",color:"white",height:30}} >previous</Text></TouchableOpacity>
+        <TouchableOpacity onPress={secondpagepreviousHandler}><Text style={{fontWeight:"500",padding:8,borderRadius:7,margin:20,color:"white",backgroundColor:"black"}} >previous</Text></TouchableOpacity>
 
-        <TouchableOpacity onPress={secondpageHandler}><Text style={{margin:20,backgroundColor:"black",color:"white",height:30}} >next</Text></TouchableOpacity>
+        <TouchableOpacity onPress={secondpageHandler}><Text style={{fontWeight:"500",padding:8,borderRadius:7,margin:20,color:"white",backgroundColor:"black"}} >next</Text></TouchableOpacity>
         </>
     )
 }

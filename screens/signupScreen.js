@@ -7,6 +7,9 @@ import backendUrl from "../components/backendUri";
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
+//form handler
+import isValidEmail from "../components/emailChecker";
+
 export default function SignupScreen({navigation}){
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     
@@ -52,7 +55,12 @@ export default function SignupScreen({navigation}){
 
     }
     async function createaccountHandler(){
+
         setApiresponse("")
+        if(!isValidEmail(email)){
+            setApiresponse("please enter valid mail")
+            return
+        }
         setLoading(true)
         try{
             let response=(await axios.post(backendUrl+"/auth/signup",

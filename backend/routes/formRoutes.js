@@ -5,6 +5,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const secretKey = 'your-secret-key'; // Replace with your actual secret key
 const prisma=require("../prisma/prismaClient")
+const nodemailer = require('nodemailer');
 
 
 router.post("/submit",async (req,res)=>{
@@ -24,6 +25,31 @@ router.post("/submit",async (req,res)=>{
         await prisma.survey.create({
             data:request
         })
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'muhammedsirajudeen29@gmail.com',
+                pass: 'eilq xprp yolv yjrv',
+            },
+        });
+        
+        // Setup email data
+        const mailOptions = {
+            from: 'muhammedsirajudeen29@gmail.com',
+            to: 'muhammedsirajudeen.formal@gmail.com',
+            subject: 'FORM SUBMITTED',
+            text: JSON.stringify(request),
+        };
+        
+        // Send email
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log('Error:', error);
+            }
+            console.log('Message sent:', info.response);
+        });
+        
         res.json({message:"success"})
 
 

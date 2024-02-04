@@ -6,6 +6,8 @@ import backendUrl from "../components/backendUri";
 import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import isValidEmail from "../components/emailChecker";
+
 export default function LoginScreen({navigation}){
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -46,6 +48,10 @@ export default function LoginScreen({navigation}){
     
     
     async function loginHandler(){
+      if(!isValidEmail(email)){
+        setApiresponse("enter valid email address")
+        return
+      }
       setLoading(true)
       let response=(await axios.post(backendUrl+"/auth/signin",
       {
